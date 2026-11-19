@@ -2,261 +2,722 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  background: #eee9dc;
-  color: #29261f;
-  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+:root {
+  --paper: #f8f5eb;
+  --paper-dark: #eee8d9;
+  --line: #aaa292;
+  --text: #29261f;
+  --muted: #6f695e;
+  --selected: #d8d0bd;
+  --hover: #e9e3d5;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #e9e4d8;
+  color: var(--text);
+
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Noto Serif JP",
+    serif;
+}
+
+
+/* =========================
+   ヘッダー
+========================= */
+
 .header {
-  height: 76px;
+  height: 78px;
+
   padding: 12px 24px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #b9b09e;
-  background: #e7e0d0;
+
+  background: #e2dccd;
+
+  border-bottom: 1px solid #a69f91;
 }
 
-.header h1 {
+.header-title {
+  min-width: 180px;
+}
+
+.header-title h1 {
   margin: 0;
-  font-size: 24px;
+
+  font-size: 25px;
   font-weight: 600;
+  letter-spacing: 0.08em;
 }
 
 #classInfo {
-  margin-top: 3px;
+  margin-top: 4px;
+
   font-size: 13px;
+
+  color: var(--muted);
 }
 
-.header-actions {
+
+.header-controls {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.header-actions button {
-  border: 1px solid #aaa18f;
-  background: #f4f0e6;
-  padding: 7px 12px;
-  cursor: pointer;
-  font-family: inherit;
+.month-label {
+  min-width: 125px;
+
+  text-align: center;
+
+  font-size: 17px;
+  font-weight: 600;
 }
 
-#monthLabel {
-  min-width: 110px;
-  text-align: center;
+.nav-button,
+.edit-button {
+  height: 36px;
+
+  padding: 0 13px;
+
+  border: 1px solid #9f9889;
+
+  background: #f5f1e7;
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  cursor: pointer;
 }
+
+.nav-button:hover,
+.edit-button:hover {
+  background: var(--hover);
+}
+
+.edit-button {
+  margin-left: 8px;
+}
+
+
+/* =========================
+   出席簿
+========================= */
 
 main {
   padding: 24px;
 }
 
 .book {
+  width: 100%;
+
   overflow: auto;
-  border: 1px solid #8f8777;
-  background: #f8f5eb;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  border: 1px solid #90897b;
+
+  background: var(--paper);
+
+  box-shadow:
+    0 2px 7px rgba(0, 0, 0, 0.08);
 }
 
 table {
-  border-collapse: collapse;
   width: max-content;
   min-width: 100%;
+
+  border-collapse: collapse;
+
   table-layout: fixed;
 }
 
 th,
 td {
-  border: 1px solid #9f9888;
   height: 46px;
+
+  padding: 0;
+
+  border: 1px solid var(--line);
+
   text-align: center;
+
   white-space: nowrap;
 }
 
 thead th {
-  background: #e8e2d3;
+  background: var(--paper-dark);
+
   font-weight: 600;
+
   position: sticky;
   top: 0;
-  z-index: 2;
+
+  z-index: 4;
 }
 
-.number {
+.number-column {
   width: 55px;
+
   position: sticky;
   left: 0;
-  z-index: 3;
+
+  z-index: 6;
 }
 
-.name {
+.name-column {
   width: 180px;
+
   position: sticky;
   left: 55px;
+
+  z-index: 6;
+}
+
+tbody .number-cell {
+  width: 55px;
+
+  background: #f2eee3;
+
+  position: sticky;
+  left: 0;
+
   z-index: 3;
 }
 
-tbody td.number-cell,
-tbody td.name-cell {
-  background: #f2eee3;
-  position: sticky;
-  z-index: 1;
-}
+tbody .name-cell {
+  width: 180px;
 
-tbody td.number-cell {
-  left: 0;
-}
-
-tbody td.name-cell {
-  left: 55px;
-  text-align: left;
   padding-left: 12px;
+
+  text-align: left;
+
+  background: #f2eee3;
+
+  position: sticky;
+  left: 55px;
+
+  z-index: 3;
 }
 
 .date-cell {
   width: 54px;
+
   cursor: pointer;
-  transition: background 0.12s;
+
+  transition:
+    background 0.12s ease;
 }
 
 .date-cell:hover {
-  background: #ddd5c4;
+  background: var(--hover);
 }
 
 .date-cell.today {
-  background: #d9d0bd;
+  background: #ded6c5;
 }
 
 .status {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 600;
 }
 
+
+/* =========================
+   モーダル
+========================= */
+
 .modal {
   position: fixed;
+
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+
+  z-index: 100;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
-  z-index: 10;
+
+  padding: 20px;
+
+  background: rgba(25, 22, 18, 0.42);
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .modal-content {
-  width: min(420px, calc(100% - 30px));
-  padding: 24px;
-  background: #f5f1e7;
-  border: 1px solid #999080;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  width: min(920px, 100%);
+  max-height: 92vh;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #f7f3e9;
+
+  border: 1px solid #928a7b;
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.22);
 }
 
-.modal-content h2 {
-  margin-top: 0;
+.attendance-modal {
+  width: min(980px, 100%);
 }
 
-.attendance-buttons {
+.edit-modal {
+  width: min(620px, 100%);
+}
+
+
+/* =========================
+   モーダルヘッダー
+========================= */
+
+.modal-header {
+  min-height: 70px;
+
+  padding: 15px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #b0a99b;
+
+  background: #e9e2d3;
+}
+
+.modal-subtitle {
+  font-size: 12px;
+
+  color: var(--muted);
+}
+
+.modal-header h2 {
+  margin: 3px 0 0;
+
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.modal-close {
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid #aaa294;
+
+  background: #f6f1e6;
+
+  font-size: 23px;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: var(--hover);
+}
+
+
+/* =========================
+   一括操作
+========================= */
+
+.bulk-controls {
+  padding: 14px 20px;
+
+  display: flex;
+
+  gap: 8px;
+
+  border-bottom: 1px solid #c0b9aa;
+
+  background: #f1ecdf;
+}
+
+.bulk-button {
+  min-height: 38px;
+
+  padding: 0 15px;
+
+  border: 1px solid #938c7d;
+
+  background: #e0d8c8;
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+.bulk-button:hover {
+  background: #d5ccba;
+}
+
+.bulk-button.secondary {
+  background: #f7f3e9;
+}
+
+
+/* =========================
+   出席入力一覧
+========================= */
+
+.attendance-list {
+  overflow-y: auto;
+
+  flex: 1;
+
+  padding: 0 20px;
+}
+
+.attendance-list-header,
+.attendance-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 20px 0;
+
+  grid-template-columns:
+    minmax(170px, 1fr)
+    90px
+    90px
+    90px
+    90px;
+
+  min-width: 610px;
 }
 
-.attendance-buttons button {
-  min-height: 55px;
-  border: 1px solid #938b7b;
-  background: #ebe5d7;
+.attendance-list-header {
+  position: sticky;
+  top: 0;
+
+  z-index: 3;
+
+  min-height: 42px;
+
+  align-items: center;
+
+  border-bottom: 1px solid #9f9889;
+
+  background: #e6dfd0;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-align: center;
+}
+
+.attendance-list-header .student-header {
+  text-align: left;
+
+  padding-left: 12px;
+}
+
+.attendance-row {
+  min-height: 62px;
+
+  align-items: center;
+
+  border-bottom: 1px solid #c5bfb1;
+}
+
+.attendance-student-name {
+  padding-left: 12px;
+
+  font-size: 15px;
+}
+
+.status-button {
+  height: 40px;
+
+  margin: 0 5px;
+
+  border: 1px solid #aaa294;
+
+  background: #f7f3e9;
+
+  color: var(--text);
+
   font-family: inherit;
-  font-size: 16px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.1s ease,
+    border 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.status-button:hover {
+  background: var(--hover);
+}
+
+.status-button.selected {
+  background: var(--selected);
+
+  border: 2px solid #625c50;
+
+  box-shadow:
+    inset 0 0 0 1px #f8f5eb;
+}
+
+.status-button.selected::before {
+  content: "✓ ";
+
+  font-weight: bold;
+}
+
+
+/* =========================
+   フッター
+========================= */
+
+.modal-footer {
+  min-height: 68px;
+
+  padding: 12px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-top: 1px solid #b0a99b;
+
+  background: #e9e2d3;
+}
+
+.input-count {
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+.modal-footer-buttons {
+  display: flex;
+
+  gap: 8px;
+}
+
+.cancel-button,
+.save-button {
+  min-height: 40px;
+
+  padding: 0 17px;
+
+  border: 1px solid #938c7d;
+
+  font-family: inherit;
+
   cursor: pointer;
 }
 
-.attendance-buttons button:hover {
-  background: #dcd4c3;
+.cancel-button {
+  background: #f7f3e9;
 }
 
-.close-button {
+.save-button {
+  background: #d8d0bd;
+}
+
+.save-button:hover {
+  background: #cfc6b3;
+}
+
+
+/* =========================
+   編集画面
+========================= */
+
+.settings-section {
+  padding: 20px;
+
+  display: grid;
+
+  gap: 14px;
+}
+
+.settings-section label {
+  display: grid;
+
+  gap: 5px;
+
+  font-size: 14px;
+}
+
+.settings-section input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #999080;
-  background: transparent;
-  cursor: pointer;
+
+  height: 40px;
+
+  padding: 0 10px;
+
+  border: 1px solid #aaa294;
+
+  background: #fffdf7;
+
+  color: var(--text);
+
   font-family: inherit;
+
+  font-size: 15px;
 }
 
-.edit-content {
-  max-height: 90vh;
+.students-section {
+  padding: 0 20px 20px;
+
   overflow-y: auto;
 }
 
-.edit-content label {
-  display: block;
-  margin-bottom: 12px;
-}
+.section-title {
+  margin-bottom: 10px;
 
-.edit-content input {
-  width: 100%;
-  padding: 9px;
-  margin-top: 5px;
-  border: 1px solid #aaa18f;
-  background: #fffdf7;
-  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .student-editor-row {
   display: flex;
+
   gap: 8px;
+
   margin-bottom: 8px;
 }
 
 .student-editor-row input {
-  margin: 0;
+  flex: 1;
+
+  height: 40px;
+
+  padding: 0 10px;
+
+  border: 1px solid #aaa294;
+
+  background: #fffdf7;
+
+  font-family: inherit;
+
+  font-size: 15px;
 }
 
 .delete-student {
-  width: 40px;
-  border: 1px solid #aaa18f;
-  background: #eee8db;
-  cursor: pointer;
-}
+  width: 70px;
 
-.edit-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 20px;
-}
+  border: 1px solid #aaa294;
 
-.edit-actions button,
-#addStudent {
-  padding: 9px 16px;
-  border: 1px solid #999080;
-  background: #e7e0d0;
-  cursor: pointer;
+  background: #eee8dc;
+
+  color: #4e493f;
+
   font-family: inherit;
+
+  cursor: pointer;
 }
+
+.delete-student:hover {
+  background: #ddd5c6;
+}
+
+.add-student-button {
+  width: 100%;
+
+  min-height: 42px;
+
+  margin-top: 5px;
+
+  border: 1px dashed #999183;
+
+  background: transparent;
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+.add-student-button:hover {
+  background: #eee8db;
+}
+
+
+/* =========================
+   スマホ
+========================= */
 
 @media (max-width: 700px) {
+
+  .header {
+    height: auto;
+
+    padding: 12px;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 10px;
+  }
+
+  .header-controls {
+    justify-content: space-between;
+  }
+
+  .month-label {
+    min-width: auto;
+  }
+
   main {
     padding: 10px;
   }
 
-  .header {
-    padding: 10px;
-  }
-
-  .header h1 {
-    font-size: 19px;
-  }
-
-  .name {
-    width: 140px;
+  .name-column,
+  tbody .name-cell {
+    width: 145px;
   }
 
   .date-cell {
     width: 48px;
   }
+
+  .attendance-list {
+    padding: 0 10px;
+  }
+
+  .bulk-controls {
+    padding: 10px;
+
+    flex-wrap: wrap;
+  }
+
+  .bulk-button {
+    flex: 1;
+
+    min-width: 110px;
+  }
+
+  .modal-footer {
+    padding: 10px;
+
+    gap: 10px;
+  }
+
+  .modal-footer-buttons {
+    flex-wrap: wrap;
+  }
+
 }
