@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #eee9dc;
+  color: #29261f;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+}
+
+.header {
+  height: 76px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #b9b09e;
+  background: #e7e0d0;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+#classInfo {
+  margin-top: 3px;
+  font-size: 13px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-actions button {
+  border: 1px solid #aaa18f;
+  background: #f4f0e6;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+#monthLabel {
+  min-width: 110px;
+  text-align: center;
+}
+
+main {
+  padding: 24px;
+}
+
+.book {
+  overflow: auto;
+  border: 1px solid #8f8777;
+  background: #f8f5eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  border: 1px solid #9f9888;
+  height: 46px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+thead th {
+  background: #e8e2d3;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.number {
+  width: 55px;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+}
+
+.name {
+  width: 180px;
+  position: sticky;
+  left: 55px;
+  z-index: 3;
+}
+
+tbody td.number-cell,
+tbody td.name-cell {
+  background: #f2eee3;
+  position: sticky;
+  z-index: 1;
+}
+
+tbody td.number-cell {
+  left: 0;
+}
+
+tbody td.name-cell {
+  left: 55px;
+  text-align: left;
+  padding-left: 12px;
+}
+
+.date-cell {
+  width: 54px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.date-cell:hover {
+  background: #ddd5c4;
+}
+
+.date-cell.today {
+  background: #d9d0bd;
+}
+
+.status {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  width: min(420px, calc(100% - 30px));
+  padding: 24px;
+  background: #f5f1e7;
+  border: 1px solid #999080;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.attendance-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.attendance-buttons button {
+  min-height: 55px;
+  border: 1px solid #938b7b;
+  background: #ebe5d7;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.attendance-buttons button:hover {
+  background: #dcd4c3;
+}
+
+.close-button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #999080;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.edit-content {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.edit-content label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.edit-content input {
+  width: 100%;
+  padding: 9px;
+  margin-top: 5px;
+  border: 1px solid #aaa18f;
+  background: #fffdf7;
+  font-family: inherit;
+}
+
+.student-editor-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.student-editor-row input {
+  margin: 0;
+}
+
+.delete-student {
+  width: 40px;
+  border: 1px solid #aaa18f;
+  background: #eee8db;
+  cursor: pointer;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.edit-actions button,
+#addStudent {
+  padding: 9px 16px;
+  border: 1px solid #999080;
+  background: #e7e0d0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@media (max-width: 700px) {
+  main {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 10px;
+  }
+
+  .header h1 {
+    font-size: 19px;
+  }
+
+  .name {
+    width: 140px;
+  }
+
+  .date-cell {
+    width: 48px;
+  }
+}
