@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デジタル出席簿</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div>
+      <h1>出席簿</h1>
+      <div id="classInfo">中学3年 1組</div>
+    </div>
+
+    <div class="header-actions">
+      <button id="prevMonth">‹</button>
+      <span id="monthLabel"></span>
+      <button id="nextMonth">›</button>
+      <button id="editButton">編集</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="book">
+      <table id="attendanceTable">
+        <thead>
+          <tr id="dateRow">
+            <th class="number">No.</th>
+            <th class="name">生徒氏名</th>
+          </tr>
+        </thead>
+
+        <tbody id="studentRows"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div id="attendanceModal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modalTitle"></h2>
+
+      <div id="attendanceButtons" class="attendance-buttons">
+        <button data-status="出席">出席</button>
+        <button data-status="欠席">欠席</button>
+        <button data-status="遅刻">遅刻</button>
+        <button data-status="振替">振替</button>
+      </div>
+
+      <button id="closeModal" class="close-button">閉じる</button>
+    </div>
+  </div>
+
+  <div id="editModal" class="modal hidden">
+    <div class="modal-content edit-content">
+      <h2>出席簿を編集</h2>
+
+      <label>
+        学年
+        <input id="gradeInput" type="text">
+      </label>
+
+      <label>
+        クラス
+        <input id="classInput" type="text">
+      </label>
+
+      <h3>生徒氏名</h3>
+
+      <div id="studentEditor"></div>
+
+      <button id="addStudent">生徒を追加</button>
+
+      <div class="edit-actions">
+        <button id="saveSettings">保存</button>
+        <button id="closeEditModal">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
